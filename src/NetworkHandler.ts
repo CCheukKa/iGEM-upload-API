@@ -43,6 +43,7 @@ export default class NetworkHandler {
                     return axios.delete(requestUrl, { params: parameters, headers, validateStatus: () => true });
             }
         })();
+        console.log('='.repeat(80));
         console.log(`Received response with status ${response.status}: ${response.statusText}`, { data: response.data });
         console.log('↑'.repeat(80));
         return response;
