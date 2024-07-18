@@ -15,7 +15,7 @@ npm install igem-upload-api
 
 ## Usage
 ```js
-import {igemUploadApi} from 'igem-upload-api';
+import igemUploadApi from 'igem-upload-api';
 
 // Wrap in async function to use await
 (async () => {
