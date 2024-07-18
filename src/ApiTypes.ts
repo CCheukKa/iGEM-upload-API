@@ -62,6 +62,14 @@ type UserData = {
     photoURL: string;
     firstName: string;
 };
+/**
+ * Represents the team number.
+ */
+type TeamNumber = number;
+/**
+ * Represents the name of a file.
+ */
+type FileName = string;
 /* -------------------------------------------------------------------------- */
 /* -------------------------------------------------------------------------- */
 /**
@@ -83,11 +91,12 @@ export type AuthMeResponseBody = {
     // 
     data: UserData;
 };
+
 /**
  * Represents the response body for querying a directory.
  */
 export type QueryDirectoryResponseBody = {
-    _requestPath: ['websites', 'teams', teamNumber: number];
+    _requestPath: ['websites', 'teams', TeamNumber];
     _requestParameters: {
         directory: string | null;
     };
@@ -102,15 +111,15 @@ export type QueryDirectoryResponseBody = {
         Name: string;
         Prefix: string;
         // 
-        Folders: FolderData[];
-        Files: FileData[];
+        Folders?: FolderData[];
+        Files?: FileData[];
     };
 };
 /**
  * Represents the response body for deleting a file.
  */
 export type DeleteFileResponseBody = {
-    _requestPath: ['websites', 'teams', teamNumber: number, fileName: string];
+    _requestPath: ['websites', 'teams', TeamNumber, FileName];
     _requestParameters: {
         directory: string | null;
     };
@@ -122,7 +131,7 @@ export type DeleteFileResponseBody = {
  * Represents the response body of an upload file request.
  */
 export type UploadFileResponseBody = {
-    _requestPath: ['websites', 'teams', teamNumber: number];
+    _requestPath: ['websites', 'teams', TeamNumber];
     _requestParameters: {
         directory: string | null;
     };
