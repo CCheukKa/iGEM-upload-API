@@ -1,6 +1,6 @@
 {
     "name": "igem-upload-api",
-    "version": "1.1.2",
+    "version": "1.1.3",
     "description": "An API that interfaces with the iGEM upload tool (https://uploads.igem.org) to allow automatic file management and organisation.",
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
