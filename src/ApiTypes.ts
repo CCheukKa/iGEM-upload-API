@@ -31,7 +31,7 @@ type $Metadata = {
 /**
  * Represents the data for a folder.
  */
-type FolderData = {
+export type FolderData = {
     Prefix: string;
     Key: string;
     Name: string;
@@ -40,7 +40,7 @@ type FolderData = {
 /**
  * Represents the data of a file.
  */
-type FileData = {
+export type FileData = {
     Key: string;
     LastModified: string;
     ETag: string;

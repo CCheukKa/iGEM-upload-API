@@ -93,26 +93,26 @@ import igemUploadApi from 'igem-upload-api';
 ### `startSession(): Promise<void>`
 Starts a new session with the iGEM upload tool API.  
 
-### `listDirectory(remoteDirectoryPath: PathArrayableType): Promise<{ folders: string[], files: string[] }>`
+### `listDirectory(remoteDirectoryPath: PathArrayableType): Promise<DirectoryListing>`
 Lists the contents of a remote directory specified by the `remoteDirectoryPath` parameter non-recursively.  
 
 Returns an object with two optional arrays.  
-| Key                   | Required? | Type           | Description                                    |
-| :-------------------- | :-------: | :------------- | :--------------------------------------------- |
-| `folders`             |    No     | `FolderData[]` | List of subdirectories                         |
-| `\|___.Prefix`        |    Yes    | `string`       | The URL path of the folder?                    |
-| `\|___.Key`           |    Yes    | `string`       | The path of the folder                         |
-| `\|___.Name`          |    Yes    | `string`       | The name of the folder                         |
-| `\|___.Type`          |    Yes    | `"Folder"`     |                                                |
-| `files`               |    No     | `FileData[]`   | List of files                                  |
-| `\|____.Key`          |    Yes    | `string`       | The path of the file                           |
-| `\|____.LastModified` |    Yes    | `string`       | The last modified date (ISO date time string ) |
-| `\|____.ETag`         |    Yes    | `string`       | The ETag of the file                           |
-| `\|____.Size`         |    Yes    | `number`       | The size of the file (bytes)                   |
-| `\|____.StorageClass` |    Yes    | `string`       | ?                                              |
-| `\|____.Location`     |    Yes    | `string`       | The URL of the file                            |
-| `\|____.Name`         |    Yes    | `string`       | The name of the file                           |
-| `\|____.Type`         |    Yes    | `string`       | The file extension                             |
+| Key                   | Required? | Type            | Description                                    |
+| :-------------------- | :-------: | :-------------- | :--------------------------------------------- |
+| `folders`             |    No     | `FolderData[]?` | List of subdirectories                         |
+| `\|___.Prefix`        |    Yes    | `string`        | The URL path of the folder?                    |
+| `\|___.Key`           |    Yes    | `string`        | The path of the folder                         |
+| `\|___.Name`          |    Yes    | `string`        | The name of the folder                         |
+| `\|___.Type`          |    Yes    | `"Folder"`      |                                                |
+| `files`               |    No     | `FileData[]?`   | List of files                                  |
+| `\|____.Key`          |    Yes    | `string`        | The path of the file                           |
+| `\|____.LastModified` |    Yes    | `string`        | The last modified date (ISO date time string ) |
+| `\|____.ETag`         |    Yes    | `string`        | The ETag of the file                           |
+| `\|____.Size`         |    Yes    | `number`        | The size of the file (bytes)                   |
+| `\|____.StorageClass` |    Yes    | `string`        | ?                                              |
+| `\|____.Location`     |    Yes    | `string`        | The URL of the file                            |
+| `\|____.Name`         |    Yes    | `string`        | The name of the file                           |
+| `\|____.Type`         |    Yes    | `string`        | The file extension                             |
 
 Example return object:  
 ```json

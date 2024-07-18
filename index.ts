@@ -1,9 +1,17 @@
-import { QueryDirectoryResponseBody } from './src/ApiTypes';
+import { FolderData, FileData } from './src/ApiTypes';
 import AuthHandler from './src/AuthHandler';
 import FileHandler, { RemoteResourceData } from './src/FileHandler';
 import PathArrayable, { PathArrayableType } from './src/Path';
 
 const noTokenError = new Error('No started session!');
+
+/**
+ * Represents a directory listing containing folders and files.
+ */
+export type DirectoryListing = {
+    folders?: FolderData[];
+    files?: FileData[];
+};
 
 /**
  * Represents the iGEM Upload Tool API.
@@ -62,10 +70,7 @@ export default class igemUploadToolApi {
      * @returns A Promise that resolves with the directory contents.
      * @throws {Error} If there is no session token available.
      */
-    public async listDirectory(remoteDirectoryPath: PathArrayableType): Promise<{
-        folders: QueryDirectoryResponseBody['data']['Folders'],
-        files: QueryDirectoryResponseBody['data']['Files'],
-    }> {
+    public async listDirectory(remoteDirectoryPath: PathArrayableType): Promise<DirectoryListing> {
         if (this.sessionToken === null) { throw noTokenError; }
         const response = await FileHandler.listDirectory(new PathArrayable(remoteDirectoryPath), this.teamNumber, this.sessionToken);
         return { folders: response.data.Folders, files: response.data.Files };
