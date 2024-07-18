@@ -17,11 +17,11 @@ jobs:
               with:
                   node-version: 20
                   registry-url: https://registry.npmjs.org/
-            - run: npm ci
-            - run: npm run build
-            - run: sudo apt-get install tree
-            - run: tree
-            - run: npm pack
-            - run: npm publish
+            - name: Build package
+              run: npm ci && npm run build
+            - name: Peek files
+              run: sudo apt-get install tree && tree -a
+            - name: Publish package
+              run: npm publish
               env:
                   NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
