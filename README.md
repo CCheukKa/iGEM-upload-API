@@ -1,4 +1,4 @@
-# iGEM upload tool API
+# iGEM upload API
 This is an API that interfaces with the [iGEM upload tool](https://uploads.igem.org) to allow automatic file management and organisation. The goal is to entirely replace the manual process of uploading files to the iGEM server, which is time-consuming and very user-unfriendly.  
 
 > [!CAUTION]  
