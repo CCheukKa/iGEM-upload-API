@@ -1,0 +1,36 @@
+{
+    "name": "igem-upload-api",
+    "version": "1.0.0",
+    "description": "An API that interfaces with the iGEM upload tool (https://uploads.igem.org) to allow automatic file management and organisation.",
+    "main": "dist/index.js",
+    "types": "dist/index.d.ts",
+    "scripts": {
+        "build": "echo Running build script && tsc",
+        "test": "echo Running test script && npx ts-node test/script.ts"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/CCheukKa/igem-upload-api.git"
+    },
+    "keywords": [
+        "iGEM",
+        "wiki",
+        "upload",
+        "API"
+    ],
+    "author": "CCheukKa",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/CCheukKa/igem-upload-api/issues"
+    },
+    "homepage": "https://github.com/CCheukKa/igem-upload-api#readme",
+    "dependencies": {
+        "@types/fs-extra": "^11.0.4",
+        "axios": "^1.7.2",
+        "fs-extra": "^11.2.0"
+    },
+    "devDependencies": {
+        "@types/node": "^20.14.11",
+        "typescript": "^5.5.3"
+    }
+}
