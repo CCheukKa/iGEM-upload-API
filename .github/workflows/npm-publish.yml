@@ -9,18 +9,7 @@ on:
         types: [created]
 
 jobs:
-    build:
-        runs-on: ubuntu-latest
-        steps:
-            - uses: actions/checkout@v4
-            - uses: actions/setup-node@v4
-              with:
-                  node-version: 20
-            - run: npm ci
-            - run: npm run build
-
     publish-npm:
-        needs: build
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v4
@@ -28,8 +17,10 @@ jobs:
               with:
                   node-version: 20
                   registry-url: https://registry.npmjs.org/
-            - run: rm .gitignore
             - run: npm ci
+            - run: npm run build
+            - run: apt-get install tree
+            - run: tree
             - run: npm pack
             - run: npm publish
               env:
