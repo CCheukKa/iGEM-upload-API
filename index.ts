@@ -1,7 +1,7 @@
-import { QueryDirectoryResponseBody } from './lib/ApiTypes';
-import AuthHandler from './lib/AuthHandler';
-import FileHandler, { RemoteResourceData } from './lib/FileHandler';
-import PathArrayable, { PathArrayableType } from './lib/Path';
+import { QueryDirectoryResponseBody } from './src/ApiTypes';
+import AuthHandler from './src/AuthHandler';
+import FileHandler, { RemoteResourceData } from './src/FileHandler';
+import PathArrayable, { PathArrayableType } from './src/Path';
 
 const noTokenError = new Error('No started session!');
 
@@ -22,7 +22,7 @@ export default class igemUploadToolApi {
      */
     constructor(private teamNumber: number, private username: string, private password: string) { }
 
-    // ! public lib functions
+    // ! public src functions
     /**
      * Starts a new session by signing in the user with the provided username and password.
      * Authenticates the session after signing in to confirm session token is valid.
