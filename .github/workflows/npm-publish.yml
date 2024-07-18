@@ -19,7 +19,7 @@ jobs:
                   registry-url: https://registry.npmjs.org/
             - run: npm ci
             - run: npm run build
-            - run: apt-get install tree
+            - run: sudo apt-get install tree
             - run: tree
             - run: npm pack
             - run: npm publish
