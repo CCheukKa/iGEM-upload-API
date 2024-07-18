@@ -1,11 +1,11 @@
 # iGEM upload tool API
 This is an API that interfaces with the [iGEM upload tool](https://uploads.igem.org) to allow automatic file management and organisation. The goal is to entirely replace the manual process of uploading files to the iGEM server, which is time-consuming and very user-unfriendly.  
 
-> [!CAUTION]
+> [!CAUTION]  
 > The iGEM internal API is not officially supposed to be used by the public. This entire project is reverse-engineered from the [upload tool](https://uploads.igem.org) web app and may break at any time. Please use at your own discretion.  
 
 ## Disclaimer
-> [!IMPORTANT]
+> [!IMPORTANT]  
 > ⚠️ ***This project is not affiliated with or endorsed by the [iGEM Foundation](https://igem.org/).***
 
 ## Installation
@@ -71,10 +71,10 @@ import {igemUploadApi} from 'igem-upload-api';
 })();
 ```
 
-> [!TIP]
+> [!TIP]  
 > iGEM handles passwords in unencrypted plaintext. Please absolutely do not reuse your iGEM password for any other service.  
 
-> [!NOTE]
+> [!NOTE]  
 > Directory paths accept the following type:  
 > ```ts
 > type PathArrayableType = (string | number)[] | string;
@@ -148,7 +148,7 @@ Returns the URL of the uploaded file.
 ### `deleteFile(remoteDirectoryPath: PathArrayableType, fileName: string): Promise<void>`
 Deletes a file from the remote directory specified by `remoteDirectoryPath`. The file to be deleted has the name `fileName`.  
 
-> [!WARNING]
+> [!WARNING]  
 > You should make sure the path is correct since the iGEM API does not provide any response to confirm the deletion.  
 
 ### `uploadDirectory(remoteDirectoryPath: PathArrayableType, localDirectoryPath: PathArrayableType): Promise<RemoteResourceData[]>`
