@@ -1,12 +1,12 @@
 {
     "name": "igem-upload-api",
-    "version": "1.0.5-prelease1",
+    "version": "1.0.5-prerelease2",
     "description": "An API that interfaces with the iGEM upload tool (https://uploads.igem.org) to allow automatic file management and organisation.",
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
-    "directories": {
-        "dist": "dist"
-    },
+    "files": [
+        "dist"
+    ],
     "scripts": {
         "build": "echo Running build script && tsc",
         "test": "echo Running test script && npx ts-node test/script.ts"
