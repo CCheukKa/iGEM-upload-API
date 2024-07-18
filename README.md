@@ -74,6 +74,18 @@ import igemUploadApi from 'igem-upload-api';
 > [!TIP]  
 > iGEM handles passwords in unencrypted plaintext. Please absolutely do not reuse your iGEM password for any other service.  
 
+## Types
+You can import types from the package to use in your own code.  
+```ts
+// Import the main API export and some extra types
+import igemUploadApi, { DirectoryListing, RemoteResourceData } from 'igem-upload-api';
+
+// Here are all the importable types
+import igemUploadApi, { DirectoryListing, RemoteResourceData, PathArrayableType, FileData, FolderData, FILE_TYPES } from 'igem-upload-api';
+```
+
+Of course, you can dig deeper and import internal types not listed here, but doing so is not recommended.  
+
 > [!NOTE]  
 > Directory paths accept the following type:  
 > ```ts

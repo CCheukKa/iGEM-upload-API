@@ -1,4 +1,4 @@
-import { FolderData, FileData } from './src/ApiTypes';
+import { FolderData, FileData, FILE_TYPES } from './src/ApiTypes';
 import AuthHandler from './src/AuthHandler';
 import FileHandler, { RemoteResourceData } from './src/FileHandler';
 import PathArrayable, { PathArrayableType } from './src/Path';
@@ -12,6 +12,8 @@ export type DirectoryListing = {
     folders?: FolderData[];
     files?: FileData[];
 };
+
+export { FileData, FolderData, PathArrayableType, RemoteResourceData, FILE_TYPES };
 
 /**
  * Represents the iGEM Upload Tool API.
