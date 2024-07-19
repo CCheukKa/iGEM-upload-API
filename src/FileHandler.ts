@@ -111,7 +111,13 @@ export default class FileHandler {
      */
     private static assertSupportedFileType(filename: string): void {
         const extension = filename.split('.').pop()?.toLowerCase();
-        if (!Object.values(FILE_TYPES).includes(extension as any)) { throw new Error(`Unsupported file type ${extension}; must be [${Object.values(FILE_TYPES).join(', ')}]`); }
+        if (!Object.values(FILE_TYPES).includes(extension as any)) {
+            throw new Error(`Unsupported file type ${extension}; must be [${(
+                Object.values(FILE_TYPES)
+                    .filter(type => type !== FILE_TYPES.FOLDER)
+                    .join(', ')
+            )}]`);
+        }
     }
 
     //$ public function wrappers
