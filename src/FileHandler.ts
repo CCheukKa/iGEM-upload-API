@@ -10,9 +10,12 @@ import { isDebug } from './FlagGetter';
  */
 export type RemoteResourceData = {
     localFilePath: string;
-    isSuccessful: boolean;
-    url: string | null;
-};
+} & ({
+    isSuccessful: true;
+    url: string;
+} | {
+    isSuccessful: false;
+});
 
 /**
  * Handles file operations such as listing directory contents, uploading files, and deleting files.
@@ -190,7 +193,7 @@ export default class FileHandler {
                         })
                         .catch((error: Error) => {
                             errors.push({ localFilePath, error });
-                            remoteResourceUrls.push({ localFilePath, isSuccessful: false, url: null });
+                            remoteResourceUrls.push({ localFilePath, isSuccessful: false });
                         });
                 }
             }

@@ -167,13 +167,12 @@ Deletes a file from the remote directory specified by `remoteDirectoryPath`. The
 Uploads a directory from the local system to the remote directory specified by `remoteDirectoryPath`. The directory is located at `localDirectoryPath`.  
 
 Returns an array of remote resources data.  
-| Key                    | Required? | Type                   | Description                                                       |
-| :--------------------- | :-------: | :--------------------- | :---------------------------------------------------------------- |
-| `...`                  |    Yes    | `RemoteResourceData[]` |
-| `\|____.localFilePath` |    Yes    | `string`               | The local path of the file                                        |
-| `\|____.isSuccessful`  |    Yes    | `boolean`              | Whether the upload was successful                                 |
-| `\|____.url`           |    Yes    | `string \| null`       | The URL of the uploaded file; `null` is `isSuccessful` is `false` |
-
+| Key                    |   Required?   | Type                   | Description                                                                             |
+| :--------------------- | :-----------: | :--------------------- | :-------------------------------------------------------------------------------------- |
+| `...`                  |      Yes      | `RemoteResourceData[]` |
+| `\|____.localFilePath` |      Yes      | `string`               | The local path of the file                                                              |
+| `\|____.isSuccessful`  |      Yes      | `boolean`              | Whether the upload was successful                                                       |
+| `\|____.url`           | *Conditional* | `string`               | The URL of the uploaded file; this property does not exist if `isSuccessful` is `false` |
 
 Example return object:  
 ```json
@@ -185,8 +184,7 @@ Example return object:
     },
     {
         "localFilePath": "assets/data.json",
-        "isSuccessful": false,
-        "url": null
+        "isSuccessful": false
     }
 ]
 ```
