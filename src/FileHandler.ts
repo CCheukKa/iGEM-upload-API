@@ -136,10 +136,12 @@ export default class FileHandler {
      * @returns A Promise that resolves when the directory is purged.
      */
     public static async purgeDirectory(remoteDirectoryPath: PathArrayable, teamNumber: number, sessionToken: string, recursive: boolean): Promise<void> {
-        const directory = await FileHandler.listDirectory(remoteDirectoryPath, teamNumber, sessionToken);
-        await Promise.all(directory.data.Files?.map(file => FileHandler.deleteFile(remoteDirectoryPath, file.Name, teamNumber, sessionToken)) ?? []);
+        const remotePath = remoteDirectoryPath.sanitise();
+        // 
+        const directory = await FileHandler.listDirectory(remotePath, teamNumber, sessionToken);
+        await Promise.all(directory.data.Files?.map(file => FileHandler.deleteFile(remotePath, file.Name, teamNumber, sessionToken)) ?? []);
         if (!recursive) { return; }
-        await Promise.all(directory.data.Folders?.map(folder => FileHandler.purgeDirectory(remoteDirectoryPath.append(folder.Name), teamNumber, sessionToken, recursive)) ?? []);
+        await Promise.all(directory.data.Folders?.map(folder => FileHandler.purgeDirectory(remotePath.append(folder.Name), teamNumber, sessionToken, recursive)) ?? []);
     }
     /**
      * Uploads a directory and its contents recursively to a remote server.
@@ -151,30 +153,31 @@ export default class FileHandler {
      * @returns A Promise that resolves when the upload is complete.
      */
     public static async uploadDirectory(remoteDirectoryPath: PathArrayable, localDirectoryPath: PathArrayable, teamNumber: number, sessionToken: string): Promise<RemoteResourceData[]> {
-        const errors: { localFilePath: string, error: any }[] = [];
+        const remotePath = remoteDirectoryPath.sanitise();
+        const localPath = localDirectoryPath.sanitise();
+        //
+        const errors: { localFilePath: string, error: Error }[] = [];
         const remoteResourceUrls: RemoteResourceData[] = [];
-        await uploadDirectoryRecurse(remoteDirectoryPath, localDirectoryPath);
-        if (errors.length > 0) { console.error('The following errors occurred during the upload:', errors); }
-        console.log(`Upload complete with ${errors.length} fails!`, { remoteResourceUrls });
+        await uploadDirectoryRecurse(remotePath, localPath);
         return remoteResourceUrls;
         // 
-        async function uploadDirectoryRecurse(remoteDirectoryPath: PathArrayable, localDirectoryPath: PathArrayable): Promise<void> {
-            const files = fs.readdirSync(localDirectoryPath.condenseEnd());
+        async function uploadDirectoryRecurse(remotePath: PathArrayable, localPath: PathArrayable): Promise<void> {
+            const files = fs.readdirSync(localPath.condenseEnd());
             for (const fileName of files) {
-                console.log('exploring', remoteDirectoryPath, localDirectoryPath, fileName);
-                const localFilePath: string = localDirectoryPath.append(fileName).condenseEnd();
+                console.log('exploring', remotePath, localPath, fileName);
+                const localFilePath: string = localPath.append(fileName).condenseEnd();
                 console.log('children', localFilePath);
                 const stats = fs.statSync(localFilePath);
                 if (stats.isDirectory()) {
-                    await uploadDirectoryRecurse(remoteDirectoryPath.append(fileName), localDirectoryPath.append(fileName));
+                    await uploadDirectoryRecurse(remotePath.append(fileName), localPath.append(fileName));
                 } else {
-                    await FileHandler.uploadFile(remoteDirectoryPath, localDirectoryPath, fileName, teamNumber, sessionToken)
+                    await FileHandler.uploadFile(remotePath, localPath, fileName, teamNumber, sessionToken)
                         .then(response => {
                             const url = response.url;
                             remoteResourceUrls.push({ localFilePath, isSuccessful: true, url });
                         })
-                        .catch(error => {
-                            errors.push({ localFilePath, error })
+                        .catch((error: Error) => {
+                            errors.push({ localFilePath, error });
                             remoteResourceUrls.push({ localFilePath, isSuccessful: false, url: null });
                         });
                 }
