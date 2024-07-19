@@ -104,7 +104,7 @@ export default class FileHandler {
         const requestPath: DeleteFileResponseBody['_requestPath'] = ['websites', 'teams', teamNumber, fileName];
         const requestMethod = REQUEST_METHODS.DELETE;
         const requestParameters = { directory: remotePath as string | null };
-        console.log(`Deleting file ${remotePath} from remote:${remotePath ?? '/'}...`);
+        console.log(`Deleting file ${fileName} from remote:${remotePath ?? '/'}...`);
         const response = NetworkHandler.assertStatusCode(
             await NetworkHandler.sendRequest(new PathArrayable(requestPath), requestMethod, { parameters: requestParameters, sessionToken }),
             200, 'Delete file failed!'
