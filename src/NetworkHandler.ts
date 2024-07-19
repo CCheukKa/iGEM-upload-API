@@ -1,6 +1,7 @@
 import axios, { AxiosResponse } from 'axios';
 import { REQUEST_METHODS } from './ApiTypes';
 import PathArrayable from './Path';
+import { isDebug } from './FlagGetter';
 
 /**
  * Represents a network handler for making HTTP requests to the iGEM API.
@@ -31,8 +32,8 @@ export default class NetworkHandler {
         const pathString = pathArrayable.sanitise().condense().path;
         const requestUrl = `${this.apiUrl}${pathString}`;
         const headers = sessionToken ? { Cookie: `session=${sessionToken}` } : {};
-        console.log('↓'.repeat(80));
-        console.log(`Sending ${method} request to ${requestUrl}`, { headers, body });
+        isDebug ? console.log('↓'.repeat(80)) : null;
+        isDebug ? console.log(`Sending ${method} request to ${requestUrl}`, { headers, body }) : null;
         const response = await (() => {
             switch (method) {
                 case REQUEST_METHODS.GET:
@@ -43,9 +44,9 @@ export default class NetworkHandler {
                     return axios.delete(requestUrl, { params: parameters, headers, validateStatus: () => true });
             }
         })();
-        console.log('='.repeat(80));
-        console.log(`Received response with status ${response.status}: ${response.statusText}`, { data: response.data });
-        console.log('↑'.repeat(80));
+        isDebug ? console.log('='.repeat(80)) : null;
+        isDebug ? console.log(`Received response with status ${response.status}: ${response.statusText} `, { data: response.data }) : null
+        isDebug ? console.log('↑'.repeat(80)) : null;
         return response;
     }
     /**
@@ -58,8 +59,8 @@ export default class NetworkHandler {
      */
     public static assertStatusCode(response: AxiosResponse, expectedStatusCode: number, errorMessage: string): AxiosResponse {
         if (response.status !== expectedStatusCode) {
-            console.log('Response:', response);
-            throw new Error(`${errorMessage}\nExpected status code ${expectedStatusCode}, but received ${response.status}: ${response.statusText}`);
+            isDebug ? console.log('Response:', response) : null;
+            throw new Error(`${errorMessage} \nExpected status code ${expectedStatusCode}, but received ${response.status}: ${response.statusText} `);
         }
         return response;
     }

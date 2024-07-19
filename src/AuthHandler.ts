@@ -19,6 +19,7 @@ export default class AuthHandler {
         const requestPath: AuthSignInResponseBody['_requestPath'] = ['auth', 'sign-in'];
         const requestMethod = REQUEST_METHODS.POST;
         const body = { identifier: username, password };
+        console.log(`Signing in as ${username}...`);
         const response = NetworkHandler.assertStatusCode(
             await NetworkHandler.sendRequest(new PathArrayable(requestPath), requestMethod, { body }),
             201, 'Sign in failed!'
@@ -41,6 +42,7 @@ export default class AuthHandler {
     public static async authenticate(sessionToken: string): Promise<AuthMeResponseBody> {
         const requestPath: AuthMeResponseBody['_requestPath'] = ['auth', 'me'];
         const requestMethod = REQUEST_METHODS.GET;
+        console.log('Authenticating...');
         const response = NetworkHandler.assertStatusCode(
             await NetworkHandler.sendRequest(new PathArrayable(requestPath), requestMethod, { sessionToken }),
             200, 'Authentication failed!'
@@ -62,6 +64,7 @@ export default class AuthHandler {
     public static async signOut(sessionToken: string): Promise<void> {
         const requestPath = ['auth', 'sign-out'];
         const requestMethod = REQUEST_METHODS.POST;
+        console.log('Signing out...');
         const response = NetworkHandler.assertStatusCode(
             await NetworkHandler.sendRequest(new PathArrayable(requestPath), requestMethod, { sessionToken }),
             201, 'Sign out failed!'
