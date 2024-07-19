@@ -143,7 +143,7 @@ export default class FileHandler {
         const remotePath = remoteDirectoryPath.sanitise();
         // 
         console.log(`Purging directory at remote:${remotePath.condense().getNullablePath() as string | null ?? '/'}...`);
-        const directory = await FileHandler.listDirectory(remotePath, teamNumber, sessionToken);
+        const directory = await FileHandler.listDirectory(remotePath, teamNumber, sessionToken, false);
         await Promise.all(directory.data.Files?.map(file => FileHandler.deleteFile(remotePath, file.Name, teamNumber, sessionToken)) ?? []);
         if (!recursive) { return; }
         await Promise.all(directory.data.Folders?.map(folder => FileHandler.purgeDirectory(remotePath.append(folder.Name), teamNumber, sessionToken, recursive)) ?? []);
