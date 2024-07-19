@@ -26,9 +26,11 @@ export default class FileHandler {
      * @returns A Promise that resolves to the response body containing the directory contents.
      */
     public static async listDirectory(remoteDirectoryPath: PathArrayable, teamNumber: number, sessionToken: string): Promise<QueryDirectoryResponseBody> {
+        const remotePath = remoteDirectoryPath.sanitise().condense().getNullablePath() as string | null;
+        // 
         const requestPath: QueryDirectoryResponseBody['_requestPath'] = ['websites', 'teams', teamNumber];
         const requestMethod = REQUEST_METHODS.GET;
-        const requestParameters = { directory: remoteDirectoryPath.sanitise().condense().getNullablePath() as string | null };
+        const requestParameters = { directory: remotePath };
         const response = NetworkHandler.assertStatusCode(
             await NetworkHandler.sendRequest(new PathArrayable(requestPath), requestMethod, { parameters: requestParameters, sessionToken }),
             200, 'List directory failed!'
@@ -58,16 +60,18 @@ export default class FileHandler {
      * @throws An error if the file is not found or if the file type is not supported.
      */
     public static async uploadFile(remoteDirectoryPath: PathArrayable, localDirectoryPath: PathArrayable, fileName: string, teamNumber: number, sessionToken: string): Promise<UploadFileResponseBody> {
+        const remotePath = remoteDirectoryPath.sanitise().condense().getNullablePath() as string | null;
+        // 
         const requestPath: UploadFileResponseBody['_requestPath'] = ['websites', 'teams', teamNumber];
         const requestMethod = REQUEST_METHODS.POST;
-        const requestParameters = { directory: remoteDirectoryPath.sanitise().condense().getNullablePath() as string | null };
+        const requestParameters = { directory: remotePath as string | null };
         // 
-        const fileFullPath: string = localDirectoryPath.append(fileName).condenseEnd();
-        if (!fs.exists(fileFullPath)) { throw new Error('File not found!'); }
+        const localFilePath: string = localDirectoryPath.append(fileName).condenseEnd();
+        if (!fs.exists(localFilePath)) { throw new Error('File not found!'); }
         this.assertSupportedFileType(fileName);
         // 
         const formData = new FormData();
-        const fileStream = fs.createReadStream(fileFullPath);
+        const fileStream = fs.createReadStream(localFilePath);
         formData.append('file', fileStream, fileName);
         const response = NetworkHandler.assertStatusCode(
             await NetworkHandler.sendRequest(new PathArrayable(requestPath), requestMethod, { parameters: requestParameters, body: formData, sessionToken }),
@@ -89,9 +93,11 @@ export default class FileHandler {
      * @returns A promise that resolves to the response body containing information about the deleted file.
      */
     public static async deleteFile(remoteDirectoryPath: PathArrayable, fileName: string, teamNumber: number, sessionToken: string): Promise<DeleteFileResponseBody> {
+        const remotePath = remoteDirectoryPath.sanitise().condense().getNullablePath() as string | null;
+        // 
         const requestPath: DeleteFileResponseBody['_requestPath'] = ['websites', 'teams', teamNumber, fileName];
         const requestMethod = REQUEST_METHODS.DELETE;
-        const requestParameters = { directory: remoteDirectoryPath.sanitise().condense().getNullablePath() as string | null };
+        const requestParameters = { directory: remotePath as string | null };
         const response = NetworkHandler.assertStatusCode(
             await NetworkHandler.sendRequest(new PathArrayable(requestPath), requestMethod, { parameters: requestParameters, sessionToken }),
             200, 'Delete file failed!'
@@ -156,13 +162,13 @@ export default class FileHandler {
             const files = fs.readdirSync(localDirectoryPath.condenseEnd());
             for (const fileName of files) {
                 console.log('exploring', remoteDirectoryPath, localDirectoryPath, fileName);
-                const localFilePath: string = localDirectoryPath.new().append(fileName).condenseEnd();
+                const localFilePath: string = localDirectoryPath.append(fileName).condenseEnd();
                 console.log('children', localFilePath);
                 const stats = fs.statSync(localFilePath);
                 if (stats.isDirectory()) {
-                    await uploadDirectoryRecurse(remoteDirectoryPath.new().append(fileName), localDirectoryPath.new().append(fileName));
+                    await uploadDirectoryRecurse(remoteDirectoryPath.append(fileName), localDirectoryPath.append(fileName));
                 } else {
-                    await FileHandler.uploadFile(remoteDirectoryPath.new(), localDirectoryPath.new(), fileName, teamNumber, sessionToken)
+                    await FileHandler.uploadFile(remoteDirectoryPath, localDirectoryPath, fileName, teamNumber, sessionToken)
                         .then(response => {
                             const url = response.url;
                             remoteResourceUrls.push({ localFilePath, isSuccessful: true, url });

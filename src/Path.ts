@@ -17,24 +17,30 @@ export default class PathArrayable {
      * Sanitises the path by expanding, trimming, and filtering its elements.
      * If the path is a string, it expands it and then sanitises it.
      * If the path is an object, it trims and filters each element.
-     * @returns The sanitized PathArrayable object.
+     * @returns A new sanitized PathArrayable object.
+     * @throws {Error} If the path is of an invalid type.
      */
     public sanitise(): PathArrayable {
-        if (typeof this.path === 'string') { this.expand().sanitise().condense(); }
+        if (typeof this.path === 'string') { return this.expand().sanitise().condense(); }
         if (typeof this.path === 'object') {
-            this.path = this.path.map(pathElement => pathElement.toString().trim()).filter(pathElement => pathElement.length !== 0);
+            return new PathArrayable(
+                this.path
+                    .map(pathElement => pathElement.toString().trim())
+                    .filter(pathElement => pathElement.length !== 0)
+            );
         }
-        return this;
+        throw new Error('Invalid PathArrayableType!');
     }
     /**
-     * Condenses the path by joining the elements with a forward slash ("/").
-     * If the path is already an object, it is converted to a string by joining its elements.
+     * Condenses the path into a PathArrayable object.
+     * If the path is an array, it joins the elements with '/' separator.
+     * If the path is a string, it returns a new PathArrayable object with the same path.
      * 
-     * @returns The condensed path.
+     * @returns A new PathArrayable object with the condensed path.
      */
     public condense(): PathArrayable {
-        if (typeof this.path === 'object') { this.path = this.path.join('/'); }
-        return this;
+        if (typeof this.path === 'object') { return new PathArrayable(this.path.join('/')); }
+        return new PathArrayable(this.path);
     }
     /**
      * Returns the condensed path as a string.
@@ -42,13 +48,14 @@ export default class PathArrayable {
      */
     public condenseEnd(): string { return this.condense().path as string; }
     /**
-     * Expands the path by splitting it into an array of path segments.
-     * If the path is a string, it will be split using the '/' delimiter.
-     * @returns The expanded path as an array.
+     * Expands the path into a PathArrayable object.
+     * If the path is a string, it splits it by '/' and returns a new PathArrayable object.
+     * If the path is already an array, it returns a new PathArrayable object with the same path.
+     * @returns A new PathArrayable object representing the expanded path.
      */
     public expand(): PathArrayable {
-        if (typeof this.path === 'string') { this.path = this.path.split('/'); }
-        return this;
+        if (typeof this.path === 'string') { return new PathArrayable(this.path.split('/')); }
+        return new PathArrayable(this.path);
     }
     /**
      * Expands the path and returns the expanded path as an array.
@@ -66,17 +73,9 @@ export default class PathArrayable {
      * Appends the given path to the current path.
      * 
      * @param path - The path to append.
-     * @returns The updated Path object.
+     * @returns A new `PathArrayable` instance with the appended path.
      */
     public append(path: PathArrayableType): PathArrayable {
-        this.path = this.expandEnd().concat(new PathArrayable(path).expandEnd());
-        return this;
-    }
-    /**
-     * Creates a new instance of the `PathArrayable` class based on the current `Path` instance.
-     * @returns A new `PathArrayable` instance.
-     */
-    public new(): PathArrayable {
-        return new PathArrayable(this.path);
+        return new PathArrayable(this.expandEnd().concat(new PathArrayable(path).expandEnd()));
     }
 }
