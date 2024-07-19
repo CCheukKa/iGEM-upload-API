@@ -29,7 +29,7 @@ export default class NetworkHandler {
         }
     ): Promise<AxiosResponse> {
         const { parameters, body, sessionToken } = args ?? {};
-        const pathString = pathArrayable.sanitise().condense().path;
+        const pathString = pathArrayable.sanitise().condenseEnd();
         const requestUrl = `${this.apiUrl}${pathString}`;
         const headers = sessionToken ? { Cookie: `session=${sessionToken}` } : {};
         isDebug ? console.log('↓'.repeat(80)) : null;
