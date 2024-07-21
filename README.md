@@ -72,8 +72,9 @@ import igemUploadApi from 'igem-upload-api';
 })();
 ```
 
-> [!TIP]  
-> iGEM handles passwords in unencrypted plaintext. Please absolutely do not reuse your iGEM password for any other service.  
+> [!CAUTION]  
+> iGEM handles passwords in unencrypted plaintext. They are sent across the internet in plaintext form.  
+> Please absolutely do not reuse your iGEM password for any other service.  
 
 ## Types
 You can import types from the package to use in your own code.  
@@ -102,6 +103,26 @@ Of course, you can dig deeper and import internal types not listed here, but doi
 > ```
 
 ## API
+
+### `new igemUploadApi(teamNumber: number, username: string, password: string): igemUploadApi`
+Creates a new instance of the iGEM upload tool API.  
+
+| Argument     | Required? | Type     | Description                                     |
+| :----------- | :-------: | :------- | :---------------------------------------------- |
+| `teamNumber` |    Yes    | `number` | The team number of the iGEM team                |
+| `username`   |    Yes    | `string` | The username used to log in to the iGEM website |
+| `password`   |    Yes    | `string` | The password used to log in to the iGEM website |
+
+> [!TIP]
+> If you are unsure about what the parameters are: 
+> 1. Go to the [upload tool](https://tools.igem.org/uploads/teams).
+> 2. Log in with your iGEM credentials, these are the same as `username` and `password`.
+> 3. Click on the team you want to upload files to. There should be only one team.
+> 4. The URL should look like `https://tools.igem.org/uploads/teams/1234`, where `1234` is the `teamNumber`.
+
+> [!CAUTION]  
+> iGEM handles passwords in unencrypted plaintext. They are sent across the internet in plaintext form.  
+> Please absolutely do not reuse your iGEM password for any other service.  
 
 ### `startSession(): Promise<void>`
 Starts a new session with the iGEM upload tool API.  
