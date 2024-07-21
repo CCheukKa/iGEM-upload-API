@@ -124,10 +124,10 @@ Creates a new instance of the iGEM upload tool API.
 > iGEM handles passwords in unencrypted plaintext. They are sent across the internet in plaintext form.  
 > Please absolutely do not reuse your iGEM password for any other service.  
 
-### `startSession(): Promise<void>`
+### igemUploadApi.`startSession(): Promise<void>`
 Starts a new session with the iGEM upload tool API.  
 
-### `listDirectory(remoteDirectoryPath: PathArrayableType): Promise<DirectoryListing>`
+### igemUploadApi.`listDirectory(remoteDirectoryPath: PathArrayableType): Promise<DirectoryListing>`
 Lists the contents of a remote directory specified by the `remoteDirectoryPath` parameter non-recursively.  
 
 Returns an object with two optional arrays.  
@@ -174,18 +174,18 @@ Example return object:
 }
 ```
 
-### `uploadFile(remoteDirectoryPath: PathArrayableType, localDirectoryPath: PathArrayableType, fileName: string): Promise<string>`
+### igemUploadApi.`uploadFile(remoteDirectoryPath: PathArrayableType, localDirectoryPath: PathArrayableType, fileName: string): Promise<string>`
 Uploads a file from the local system to the remote directory specified by `remoteDirectoryPath`. The file is located at `localDirectoryPath` and has the name `fileName`.  
 
 Returns the URL of the uploaded file.  
 
-### `deleteFile(remoteDirectoryPath: PathArrayableType, fileName: string): Promise<void>`
+### igemUploadApi.`deleteFile(remoteDirectoryPath: PathArrayableType, fileName: string): Promise<void>`
 Deletes a file from the remote directory specified by `remoteDirectoryPath`. The file to be deleted has the name `fileName`.  
 
 > [!WARNING]  
 > You should make sure the path is correct since the iGEM API does not provide any response to confirm the deletion.  
 
-### `uploadDirectory(remoteDirectoryPath: PathArrayableType, localDirectoryPath: PathArrayableType): Promise<RemoteResourceData[]>`
+### igemUploadApi.`uploadDirectory(remoteDirectoryPath: PathArrayableType, localDirectoryPath: PathArrayableType): Promise<RemoteResourceData[]>`
 Uploads a directory from the local system to the remote directory specified by `remoteDirectoryPath`. The directory is located at `localDirectoryPath`.  
 
 Returns an array of remote resources data.  
@@ -212,8 +212,8 @@ Example return object:
 ```
 Note that the `url` property will be `null` if the upload was unsuccessful. In the example case, `data.json` was rejected due to an invalid file extension.  
 
-### `purgeDirectory(remoteDirectoryPath: PathArrayableType, recursive: boolean = false): Promise<void>`
+### igemUploadApi.`purgeDirectory(remoteDirectoryPath: PathArrayableType, recursive: boolean = false): Promise<void>`
 Purges a directory from the remote directory specified by `remotePath`. If `recursive` is set to `true`, the subdirectories and their contents will also be deleted.  
 
-### `endSession(): Promise<void>`
+### igemUploadApi.`endSession(): Promise<void>`
 Ends the current session with the iGEM upload tool API.  
