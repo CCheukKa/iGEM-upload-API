@@ -2,6 +2,7 @@ import { AxiosResponse } from 'axios';
 import NetworkHandler from './NetworkHandler';
 import { REQUEST_METHODS, AuthMeResponseBody, AuthSignInResponseBody } from './ApiTypes';
 import PathArrayable from './Path';
+import { isDebug } from './FlagGetter';
 
 /**
  * Handles authentication-related operations.
@@ -26,7 +27,9 @@ export default class AuthHandler {
         );
         const sessionToken = this.grabSessionToken(response);
         if (!sessionToken) { throw new Error('Login failed!'); }
-        console.log(`Received session token: ${sessionToken} `);
+        isDebug
+            ? console.log(`Received session token: ${sessionToken} `)
+            : console.log('Received session token.');
         return {
             _requestPath: requestPath,
             _requestMethod: requestMethod,
