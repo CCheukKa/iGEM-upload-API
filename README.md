@@ -19,6 +19,7 @@ import igemUploadApi from 'igem-upload-api';
 
 // Wrap in async function to use await
 (async () => {
+
     // Create an instance of the iGEM API
     const TEAM_NUMBER = 1234;
     const USERNAME = 'lowercase-username-you-use-to-login';
