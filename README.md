@@ -9,7 +9,7 @@ This is an API that interfaces with the [iGEM upload tool](https://uploads.igem.
 > ⚠️ ***This project is not affiliated with or endorsed by the [iGEM Foundation](https://igem.org/).***
 
 ## Installation
-[Node](https://nodejs.org):
+### [Node](https://nodejs.org)
 ```sh
 npm install igem-upload-api
 ```
