@@ -1,6 +1,6 @@
 # iGEM upload API
 
-<div style="text-align: center;">
+<div align="center">
 
 <picture>
     <source width="400px" media="(prefers-color-scheme: dark)" srcset="./assets/logo-dark.svg">
