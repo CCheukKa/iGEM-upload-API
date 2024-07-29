@@ -3,11 +3,8 @@
 <div align="center">
 
 <picture>
-    <source width="400px" media="(prefers-color-scheme: dark)" srcset="./assets/logo-dark.svg">
-    <source width="400px" media="(prefers-color-scheme: light)" srcset="./assets/logo-light.svg">
     <source width="400px" media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/CCheukKa/iGEM-upload-API/main/assets/logo-dark.svg">
     <source width="400px" media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/CCheukKa/iGEM-upload-API/main/assets/logo-light.svg">
-    <source width="400px" src="./assets/logo-light.svg" />
     <img width="400px" src="https://raw.githubusercontent.com/CCheukKa/iGEM-upload-API/main/assets/logo-light.svg" />
 </picture>
 
