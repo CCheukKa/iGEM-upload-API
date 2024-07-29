@@ -1,5 +1,25 @@
 # iGEM upload API
-This is an API that interfaces with the [iGEM upload tool](https://uploads.igem.org) to allow automatic file management and organisation. The goal is to entirely replace the manual process of uploading files to the iGEM server, which is time-consuming and very user-unfriendly.  
+
+<div style="text-align: center;">
+
+<picture>
+    <source width="400px" media="(prefers-color-scheme: dark)" srcset="./assets/logo-dark.svg">
+    <source width="400px" media="(prefers-color-scheme: light)" srcset="./assets/logo-light.svg">
+    <source width="400px" media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/CCheukKa/iGEM-upload-API/main/assets/logo-dark.svg">
+    <source width="400px" media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/CCheukKa/iGEM-upload-API/main/assets/logo-light.svg">
+    <source width="400px" src="./assets/logo-light.svg" />
+    <img width="400px" src="https://raw.githubusercontent.com/CCheukKa/iGEM-upload-API/main/assets/logo-light.svg" />
+</picture>
+
+**An API that interfaces with the [iGEM upload tool](https://uploads.igem.org) to allow automatic file management and organisation.**  
+The goal is to entirely replace the manual process of uploading files to the iGEM server, which is time-consuming and very user-unfriendly.  
+
+[![NPM Version](https://img.shields.io/npm/v/igem-upload-api?style=flat-square)](https://www.npmjs.org/package/igem-upload-api)
+[![install size](https://img.shields.io/badge/dynamic/json?url=https://packagephobia.com/v2/api.json?p=igem-upload-api&query=$.install.pretty&label=install%20size&style=flat-square)](https://packagephobia.com/result?p=igem-upload-api)
+[![npm bundle size](https://img.shields.io/bundlephobia/minzip/igem-upload-api?style=flat-square)](https://bundlephobia.com/package/igem-upload-api@latest)
+[![npm downloads](https://img.shields.io/npm/d18m/igem-upload-api?style=flat-square)](https://npm-stat.com/charts.html?package=igem-upload-api)
+
+</div>
 
 > [!CAUTION]  
 > The iGEM internal API is not officially supposed to be used by the public. This entire project is reverse-engineered from the [upload tool](https://uploads.igem.org) web app and may break at any time. Please use at your own discretion.  
