@@ -29,9 +29,7 @@
     },
     "homepage": "https://github.com/CCheukKa/igem-upload-api#readme",
     "dependencies": {
-        "@types/fs-extra": "^11.0.4",
-        "axios": "^1.7.2",
-        "fs-extra": "^11.2.0"
+        "axios": "^1.7.2"
     },
     "devDependencies": {
         "@types/node": "^22.1.0",

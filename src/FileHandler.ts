@@ -1,4 +1,4 @@
-import fs = require('fs-extra');
+import fs = require('fs');
 import FormData = require('form-data');
 import NetworkHandler from './NetworkHandler';
 import { FILE_TYPES, REQUEST_METHODS, QueryDirectoryResponseBody, UploadFileResponseBody, DeleteFileResponseBody } from './ApiTypes';
@@ -72,7 +72,7 @@ export default class FileHandler {
         const requestParameters = { directory: remotePath as string | null };
         // 
         const localFilePath: string = localDirectoryPath.append(fileName).condenseEnd();
-        if (!fs.exists(localFilePath)) { throw new Error(`File ${localFilePath} not found!`); }
+        if (!fs.existsSync(localFilePath)) { throw new Error(`File ${localFilePath} not found!`); }
         this.assertSupportedFileType(fileName);
         // 
         const formData = new FormData();
