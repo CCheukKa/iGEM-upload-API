@@ -28,7 +28,7 @@ export default class AuthHandler {
         const sessionToken = this.grabSessionToken(response);
         if (!sessionToken) { throw new Error('Login failed!'); }
         isDebug
-            ? console.log(`Received session token: ${sessionToken} `)
+            ? console.log(`Received session token: ${sessionToken}`)
             : console.log('Received session token.');
         return {
             _requestPath: requestPath,
