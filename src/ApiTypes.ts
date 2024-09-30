@@ -13,9 +13,13 @@ export enum FILE_TYPES {
     FOLDER = 'Folder',
     PNG = 'png',
     JPG = 'jpg',
+    JPEG = 'jpeg',
     SVG = 'svg',
     WEBP = 'webp',
     WOFF2 = 'woff2',
+    GIF = 'gif',
+    PDF = 'pdf',
+    CSV = 'csv',
 };
 /* -------------------------------------------------------------------------- */
 /**
